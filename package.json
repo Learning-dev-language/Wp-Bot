@@ -1,0 +1,42 @@
+{
+  "name": "whatsapp-downloader-bot",
+  "version": "1.0.0",
+  "description": "Production-ready WhatsApp bot for downloading media using yt-dlp",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "^6.6.0",
+    "@aws-sdk/client-s3": "^3.500.0",
+    "@aws-sdk/lib-storage": "^3.500.0",
+    "pino": "^8.19.0",
+    "pino-pretty": "^10.3.1",
+    "dotenv": "^16.4.1",
+    "node-cron": "^3.0.3",
+    "p-limit": "^5.0.0",
+    "bottleneck": "^2.19.5",
+    "yt-dlp-wrap": "^2.3.12",
+    "qrcode-terminal": "^0.12.0",
+    "uuid": "^9.0.0",
+    "bytes": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/node-cron": "^3.0.11",
+    "@types/uuid": "^9.0.7",
+    "@types/bytes": "^3.1.4",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
