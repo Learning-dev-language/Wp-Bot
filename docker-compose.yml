@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  whatsapp-bot:
+    build: .
+    container_name: whatsapp-downloader-bot
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+      - SESSION_DIR=/app/sessions
+      - TEMP_DIR=/app/temp
+      - MAX_CONCURRENT_DOWNLOADS=3
+      - MAX_FILE_SIZE=209715200
+      - DOWNLOAD_TIMEOUT=600000
+      - RATE_LIMIT_WINDOW=60000
+      - RATE_LIMIT_MAX=5
+      - R2_ACCOUNT_ID=${R2_ACCOUNT_ID}
+      - R2_ACCESS_KEY_ID=${R2_ACCESS_KEY_ID}
+      - R2_SECRET_ACCESS_KEY=${R2_SECRET_ACCESS_KEY}
+      - R2_BUCKET_NAME=${R2_BUCKET_NAME}
+      - R2_PUBLIC_URL=${R2_PUBLIC_URL}
+      - CLEANUP_SCHEDULE="0 */6 * * *"
+      - FILE_MAX_AGE=3600000
+    volumes:
+      - sessions:/app/sessions
+      - temp:/app/temp
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+volumes:
+  sessions:
+  temp:
