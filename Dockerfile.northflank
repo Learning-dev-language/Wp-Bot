@@ -1,11 +1,13 @@
-FROM node:18-alpine
+FROM node:18-slim
 
 # Install dependencies for yt-dlp
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     python3 \
-    py3-pip \
+    python3-pip \
     ffmpeg \
-    curl
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install yt-dlp
 RUN pip3 install --break-system-packages yt-dlp
@@ -18,7 +20,7 @@ COPY package*.json ./
 COPY tsconfig.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy source code
 COPY src/ ./src/
@@ -33,12 +35,6 @@ RUN mkdir -p /app/sessions /app/temp
 ENV NODE_ENV=production
 ENV SESSION_DIR=/app/sessions
 ENV TEMP_DIR=/app/temp
-
-# Run as non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
-USER nodejs
 
 # Start the bot
 CMD ["node", "dist/index.js"]
