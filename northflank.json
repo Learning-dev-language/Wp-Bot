@@ -1,0 +1,11 @@
+{
+  "name": "whatsapp-downloader-bot",
+  "type": "service",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "ports": [],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
